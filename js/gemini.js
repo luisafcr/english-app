@@ -198,6 +198,20 @@ Then create 3 comprehension multiple-choice questions. Return JSON:
     return await raw([{ role: 'user', parts: [{ text: prompt }] }], null);
   }
 
+  /* ---- Letra de la canción línea por línea con traducción ---- */
+  async function songLyrics(songName) {
+    const sys = 'You help Spanish speakers learn English through songs.';
+    const prompt = `For the song "${songName}", provide its lyrics line by line with a natural Spanish translation for each line, for language learning purposes.
+Return JSON: { "lines": [ { "en": "english lyric line", "es": "traducción" } ] }
+Include the whole song in order. If you are not sure of the exact lyrics, provide your best version of the main verses and chorus.`;
+    const schema = {
+      type: 'object',
+      properties: { lines: { type: 'array', items: { type: 'object', properties: { en: { type: 'string' }, es: { type: 'string' } }, required: ['en', 'es'] } } },
+      required: ['lines'],
+    };
+    return JSON.parse(await raw([{ role: 'user', parts: [{ text: prompt }] }], sys, schema));
+  }
+
   /* ---- Estimar nivel a partir de respuestas de conversación (opcional) ---- */
   async function assessLevel(answers) {
     const prompt = `A Spanish speaker answered these English questions. Estimate their CEFR level (A2, B1, B2, C1 or C2) based on grammar, vocabulary and fluency.
@@ -208,5 +222,5 @@ Return JSON: { "level": "B1", "feedback": "1-2 sentences of encouraging feedback
     return JSON.parse(txt);
   }
 
-  return { hasKey, chat, generateVocab, generateQuiz, generateSong, songLesson, assessLevel, explain, writingFeedback, generateReading };
+  return { hasKey, chat, generateVocab, generateQuiz, generateSong, songLesson, assessLevel, explain, writingFeedback, generateReading, songLyrics };
 })();

@@ -661,6 +661,7 @@ window.learnSong = async (preset, ytId) => {
         <h2 style="text-align:center">🎶 ${esc(l.title)}</h2>
         <p class="muted center">${esc(l.artist)}</p>
         ${player}
+        <button class="btn good" onclick='openLyrics(${JSON.stringify(l.title + ' ' + l.artist)}, "${vid}")'>📜 Escuchar y leer la letra</button>
         <p style="margin:10px 0">${esc(l.about)}</p>
 
         <div class="section-title">Expresiones de la canción</div>
@@ -677,6 +678,41 @@ window.learnSong = async (preset, ytId) => {
     Store.addXp(5); refreshStats();
   } catch (e) { handleAiError(e); out.innerHTML = ''; }
 };
+
+let _showEs = true;
+window.openLyrics = async (name, vid) => {
+  if (!Gemini.hasKey()) { toast('Agrega tu API key en Ajustes'); go('settings'); return; }
+  current = 'music';
+  main.innerHTML = `<div class="card center"><div class="loader"></div><p class="muted">Buscando la letra de "${esc(name)}"... 📜</p></div>`;
+  try {
+    const r = await Gemini.songLyrics(name);
+    renderLyrics(name, vid, r.lines);
+    Store.addXp(5); Store.markTask('read'); refreshStats();
+  } catch (e) { handleAiError(e); go('music'); }
+};
+
+function renderLyrics(name, vid, lines) {
+  const player = vid
+    ? `<div class="yt-wrap"><iframe src="https://www.youtube.com/embed/${vid}" title="YouTube" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>`
+    : '';
+  main.innerHTML = `
+    <div class="fade-in">
+      <div class="lyrics-player">${player}</div>
+      <div class="lyrics-bar">
+        <button class="btn small ghost" onclick="go('music')">← Volver</button>
+        <button class="btn small secondary" onclick="toggleEs()">${_showEs ? '🙈 Ocultar traducción' : '👁️ Ver traducción'}</button>
+      </div>
+      <div class="full-lyrics ${_showEs ? '' : 'hide-es'}" id="full-lyrics">
+        ${lines.map(l => `
+          <div class="lline">
+            <span class="en">${esc(l.en)} ${speakerIcon(l.en)}</span>
+            <span class="es">${esc(l.es)}</span>
+          </div>`).join('')}
+      </div>
+    </div>`;
+  window._lyricsData = { name, vid, lines };
+}
+window.toggleEs = () => { _showEs = !_showEs; const d = window._lyricsData; if (d) renderLyrics(d.name, d.vid, d.lines); };
 
 window.makeSong = async () => {
   if (!Gemini.hasKey()) { toast('Agrega tu API key en Ajustes'); go('settings'); return; }

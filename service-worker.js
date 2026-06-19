@@ -1,5 +1,5 @@
 /* service-worker.js — cache para uso offline */
-const CACHE = 'english-app-v11';
+const CACHE = 'english-app-v12';
 const ASSETS = [
   './',
   './index.html',
