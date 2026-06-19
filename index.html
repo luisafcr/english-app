@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#4f46e5" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="English" />
+  <title>English A2 → B1</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="apple-touch-icon" href="icons/icon-192.png" />
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <!-- App container -->
+  <div id="app">
+    <!-- Header -->
+    <header id="header">
+      <div class="header-inner">
+        <h1 id="header-title">English</h1>
+        <div class="header-stats">
+          <span class="stat" id="streak-badge" title="Racha">🔥 <b id="streak-count">0</b></span>
+          <span class="stat" id="xp-badge" title="Puntos">⭐ <b id="xp-count">0</b></span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main views -->
+    <main id="main"></main>
+
+    <!-- Bottom navigation -->
+    <nav id="nav">
+      <button class="nav-btn active" data-view="home"><span>🏠</span><small>Inicio</small></button>
+      <button class="nav-btn" data-view="vocab"><span>🗂️</span><small>Vocab</small></button>
+      <button class="nav-btn" data-view="phrases"><span>💬</span><small>Frases</small></button>
+      <button class="nav-btn" data-view="grammar"><span>✍️</span><small>Gramática</small></button>
+      <button class="nav-btn" data-view="music"><span>🎵</span><small>Música</small></button>
+      <button class="nav-btn" data-view="chat"><span>🎙️</span><small>Hablar</small></button>
+    </nav>
+  </div>
+
+  <!-- Toast -->
+  <div id="toast"></div>
+
+  <script src="js/storage.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/speech.js"></script>
+  <script src="js/notify.js"></script>
+  <script src="js/gemini.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

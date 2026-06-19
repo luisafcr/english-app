@@ -1,0 +1,135 @@
+/* data.js — contenido inicial precargado (funciona sin internet ni IA) */
+const SEED = {
+  // Vocabulario base A2 -> B1
+  vocab: [
+    { en: 'to improve', es: 'mejorar', ex: 'I want to improve my English.' },
+    { en: 'although', es: 'aunque', ex: 'Although it was raining, we went out.' },
+    { en: 'to afford', es: 'permitirse (pagar)', ex: "I can't afford a new car." },
+    { en: 'to borrow', es: 'pedir prestado', ex: 'Can I borrow your pen?' },
+    { en: 'to lend', es: 'prestar', ex: 'She lent me ten dollars.' },
+    { en: 'on purpose', es: 'a propósito', ex: 'He did it on purpose.' },
+    { en: 'to look forward to', es: 'tener ganas de / esperar con ilusión', ex: 'I look forward to seeing you.' },
+    { en: 'in charge of', es: 'a cargo de', ex: 'She is in charge of the team.' },
+    { en: 'to get used to', es: 'acostumbrarse a', ex: 'I got used to waking up early.' },
+    { en: 'enough', es: 'suficiente', ex: 'We have enough time.' },
+    { en: 'to deal with', es: 'lidiar con / tratar', ex: 'I have to deal with this problem.' },
+    { en: 'on time', es: 'a tiempo / puntual', ex: 'The train arrived on time.' },
+    { en: 'instead of', es: 'en lugar de', ex: 'Let’s walk instead of driving.' },
+    { en: 'to point out', es: 'señalar / destacar', ex: 'She pointed out my mistake.' },
+    { en: 'to give up', es: 'rendirse / dejar', ex: "Don't give up!" },
+    { en: 'meaningful', es: 'significativo', ex: 'It was a meaningful conversation.' },
+    { en: 'to handle', es: 'manejar / gestionar', ex: 'Can you handle the pressure?' },
+    { en: 'unless', es: 'a menos que', ex: "I won't go unless you come." },
+    { en: 'to figure out', es: 'descifrar / resolver', ex: "I can't figure out this puzzle." },
+    { en: 'as soon as', es: 'tan pronto como', ex: 'Call me as soon as you arrive.' },
+  ],
+
+  // Frases útiles del día a día
+  phrases: [
+    { en: 'Could you say that again, please?', es: '¿Podrías repetir eso, por favor?' },
+    { en: 'What do you mean?', es: '¿Qué quieres decir?' },
+    { en: 'I’m not sure I understand.', es: 'No estoy segura de entender.' },
+    { en: 'How do you say ... in English?', es: '¿Cómo se dice ... en inglés?' },
+    { en: 'Let me think about it.', es: 'Déjame pensarlo.' },
+    { en: 'That makes sense.', es: 'Eso tiene sentido.' },
+    { en: 'I completely agree with you.', es: 'Estoy totalmente de acuerdo contigo.' },
+    { en: 'I’d rather stay home tonight.', es: 'Preferiría quedarme en casa esta noche.' },
+    { en: 'It depends on the situation.', es: 'Depende de la situación.' },
+    { en: 'Sorry to bother you, but...', es: 'Perdón por molestarte, pero...' },
+    { en: 'Can you help me with this?', es: '¿Puedes ayudarme con esto?' },
+    { en: 'I’m looking forward to the weekend.', es: 'Tengo ganas de que llegue el fin de semana.' },
+    { en: 'No worries, take your time.', es: 'No te preocupes, tómate tu tiempo.' },
+    { en: 'Let’s keep in touch.', es: 'Mantengámonos en contacto.' },
+    { en: 'I’ll get back to you soon.', es: 'Te respondo pronto.' },
+  ],
+
+  // Phrasal verbs (clave para sonar natural B2->C2)
+  phrasalVerbs: [
+    { en: 'give up', es: 'rendirse / dejar', ex: "Don't give up on your dreams." },
+    { en: 'find out', es: 'averiguar / descubrir', ex: 'I need to find out the truth.' },
+    { en: 'look after', es: 'cuidar de', ex: 'She looks after her little brother.' },
+    { en: 'put off', es: 'posponer / aplazar', ex: "Let's not put off the meeting." },
+    { en: 'come up with', es: 'idear / proponer', ex: 'He came up with a great idea.' },
+    { en: 'get along (with)', es: 'llevarse bien', ex: 'I get along with my coworkers.' },
+    { en: 'run out of', es: 'quedarse sin', ex: "We're running out of time." },
+    { en: 'turn down', es: 'rechazar / bajar volumen', ex: 'She turned down the job offer.' },
+    { en: 'bring up', es: 'sacar un tema / criar', ex: 'He brought up an interesting point.' },
+    { en: 'work out', es: 'resolver / hacer ejercicio', ex: 'It will all work out fine.' },
+    { en: 'look forward to', es: 'tener ganas de', ex: 'I look forward to the weekend.' },
+    { en: 'carry on', es: 'continuar', ex: 'Please carry on with your work.' },
+  ],
+
+  // Idioms / expresiones idiomáticas
+  idioms: [
+    { en: 'a piece of cake', es: 'pan comido / muy fácil', ex: 'The exam was a piece of cake.' },
+    { en: 'hit the books', es: 'ponerse a estudiar', ex: 'I have to hit the books tonight.' },
+    { en: 'under the weather', es: 'sentirse mal / enfermo', ex: "I'm feeling a bit under the weather." },
+    { en: 'break the ice', es: 'romper el hielo', ex: 'He told a joke to break the ice.' },
+    { en: 'once in a blue moon', es: 'muy de vez en cuando', ex: 'We meet once in a blue moon.' },
+    { en: 'cost an arm and a leg', es: 'costar un ojo de la cara', ex: 'That car cost an arm and a leg.' },
+    { en: 'on the same page', es: 'estar de acuerdo / entenderse', ex: "Let's make sure we're on the same page." },
+    { en: 'call it a day', es: 'dar por terminado el día', ex: "Let's call it a day." },
+    { en: 'the best of both worlds', es: 'lo mejor de ambos mundos', ex: 'Working from home is the best of both worlds.' },
+    { en: 'speak of the devil', es: 'hablando del rey de Roma', ex: 'Speak of the devil, here she is!' },
+  ],
+
+  // Catálogo de canciones en inglés por género (para elegir sin escribir)
+  songGenres: [
+    { id: 'learn', name: 'Fáciles para aprender', icon: '🎓', songs: [
+      'Let Her Go - Passenger', 'Photograph - Ed Sheeran', 'Count on Me - Bruno Mars',
+      'Riptide - Vance Joy', 'Lemon Tree - Fools Garden', 'Fix You - Coldplay',
+      'The Scientist - Coldplay', 'Hello - Adele',
+    ]},
+    { id: 'pop', name: 'Pop', icon: '🎤', songs: [
+      'Shape of You - Ed Sheeran', 'Blinding Lights - The Weeknd', 'Bad Guy - Billie Eilish',
+      'Shake It Off - Taylor Swift', 'Roar - Katy Perry', 'Happy - Pharrell Williams',
+      'Counting Stars - OneRepublic', 'Levitating - Dua Lipa',
+    ]},
+    { id: 'rock', name: 'Rock', icon: '🎸', songs: [
+      'Bohemian Rhapsody - Queen', 'Wonderwall - Oasis', 'Believer - Imagine Dragons',
+      'Smells Like Teen Spirit - Nirvana', "Don't Stop Believin' - Journey", 'Viva la Vida - Coldplay',
+      "Sweet Child o' Mine - Guns N Roses", 'Numb - Linkin Park',
+    ]},
+    { id: 'romantic', name: 'Románticas', icon: '💕', songs: [
+      'Perfect - Ed Sheeran', 'All of Me - John Legend', 'Someone Like You - Adele',
+      'Thinking Out Loud - Ed Sheeran', 'A Thousand Years - Christina Perri', 'Just the Way You Are - Bruno Mars',
+      'Love Story - Taylor Swift', "Say You Won't Let Go - James Arthur",
+    ]},
+    { id: 'hiphop', name: 'Hip-Hop / R&B', icon: '🎧', songs: [
+      'Uptown Funk - Bruno Mars', 'Sunflower - Post Malone', "God's Plan - Drake",
+      'Love Yourself - Justin Bieber', 'Stay - The Kid LAROI & Justin Bieber', 'Old Town Road - Lil Nas X',
+      'Sugar - Maroon 5', 'Sucker - Jonas Brothers',
+    ]},
+    { id: 'classics', name: 'Clásicos', icon: '🎵', songs: [
+      'Imagine - John Lennon', 'Hey Jude - The Beatles', 'Let It Be - The Beatles',
+      'Stand By Me - Ben E. King', 'I Want It That Way - Backstreet Boys', 'What a Wonderful World - Louis Armstrong',
+      'Hotel California - Eagles', 'Yesterday - The Beatles',
+    ]},
+  ],
+
+  // Prueba de nivel inicial (2 por nivel, de fácil a difícil)
+  placement: [
+    { q: 'She ___ a doctor.', opts: ['is', 'are', 'am', 'be'], a: 0, level: 'A2' },
+    { q: 'I ___ to the beach last summer.', opts: ['go', 'went', 'gone', 'going'], a: 1, level: 'A2' },
+    { q: "I've lived here ___ five years.", opts: ['since', 'for', 'from', 'ago'], a: 1, level: 'B1' },
+    { q: 'If I had more money, I ___ travel the world.', opts: ['will', 'would', 'can', 'am'], a: 1, level: 'B1' },
+    { q: 'By the time we arrived, the film ___.', opts: ['started', 'has started', 'had started', 'was starting'], a: 2, level: 'B2' },
+    { q: 'He suggested ___ a break.', opts: ['to take', 'take', 'taking', 'taken'], a: 2, level: 'B2' },
+    { q: '___ had I sat down when the phone rang.', opts: ['No sooner', 'Hardly', 'Scarcely', 'Barely'], a: 0, level: 'C1' },
+    { q: "I'd rather you ___ that again.", opts: ["don't do", "didn't do", "won't do", 'not do'], a: 1, level: 'C1' },
+    { q: '___ the bad weather, the event will go ahead.', opts: ['Despite', 'Regardless of', 'In spite', 'However'], a: 1, level: 'C2' },
+    { q: 'Little ___ that he was being watched.', opts: ['he knew', 'did he know', 'he did know', 'knew he'], a: 1, level: 'C2' },
+  ],
+
+  // Quizzes de gramática (fallback sin IA)
+  grammar: [
+    { q: 'She ___ to the gym every day.', opts: ['go', 'goes', 'going', 'gone'], a: 1, why: '3ª persona singular en presente simple: add -es.' },
+    { q: 'I have lived here ___ 2019.', opts: ['for', 'since', 'from', 'ago'], a: 1, why: '"since" + punto en el tiempo; "for" + duración.' },
+    { q: 'If it rains, we ___ at home.', opts: ['stay', 'will stay', 'stayed', 'staying'], a: 1, why: 'First conditional: if + present, will + verbo.' },
+    { q: 'This is the ___ movie I have ever seen.', opts: ['good', 'better', 'best', 'most good'], a: 2, why: 'Superlativo de "good" = best.' },
+    { q: 'I’m used ___ early.', opts: ['to wake up', 'to waking up', 'wake up', 'waking'], a: 1, why: '"be used to" + verbo en -ing.' },
+    { q: 'He ___ TV when I called.', opts: ['watched', 'was watching', 'watches', 'is watching'], a: 1, why: 'Past continuous para acción en progreso en el pasado.' },
+    { q: 'You ___ smoke here. It’s not allowed.', opts: ['mustn’t', 'don’t have to', 'should', 'can'], a: 0, why: '"mustn’t" = prohibición.' },
+    { q: 'I wish I ___ more time.', opts: ['have', 'had', 'has', 'will have'], a: 1, why: '"wish" + past simple para deseos sobre el presente.' },
+  ],
+};
