@@ -135,6 +135,7 @@ Create a short learning lesson for CEFR ${level()}. Return JSON:
 {
   "title": "song title",
   "artist": "artist name",
+  "youtubeId": "the 11-character YouTube video ID of the official music video/audio, or empty string if unsure",
   "about": "2-3 sentences in Spanish about what the song is about and its overall meaning",
   "expressions": [ { "en": "phrase or expression FROM the song", "es": "traducción", "note": "short tip in Spanish about when/how to use it" } ],
   "vocab": [ { "en": "word from the song", "es": "traducción", "ex": "short example sentence in English" } ]
@@ -145,6 +146,7 @@ Give 4 expressions and 5 vocab words. Keep it ${level()} appropriate.`;
       properties: {
         title: { type: 'string' },
         artist: { type: 'string' },
+        youtubeId: { type: 'string' },
         about: { type: 'string' },
         expressions: { type: 'array', items: { type: 'object', properties: { en: { type: 'string' }, es: { type: 'string' }, note: { type: 'string' } }, required: ['en', 'es', 'note'] } },
         vocab: { type: 'array', items: { type: 'object', properties: { en: { type: 'string' }, es: { type: 'string' }, ex: { type: 'string' } }, required: ['en', 'es', 'ex'] } },

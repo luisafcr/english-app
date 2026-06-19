@@ -620,8 +620,8 @@ Views.music = () => {
 window.surpriseSong = () => {
   const all = SEED.songGenres.flatMap(g => g.songs);
   const pick = all[Math.floor(Math.random() * all.length)];
-  toast('🎲 ' + pick);
-  learnSong(pick);
+  toast('🎲 ' + pick.n);
+  learnSong(pick.n, pick.yt);
 };
 
 window.pickGenre = (gid) => {
@@ -633,15 +633,15 @@ window.pickGenre = (gid) => {
       <h2 style="font-size:16px">${g.icon} ${g.name}</h2>
       <div class="song-list">
         ${g.songs.map(s => `
-          <button class="song-item" onclick="learnSong(${JSON.stringify(s).replace(/"/g, '&quot;')})">
-            <span>🎵 ${esc(s)}</span><span class="go-arrow">›</span>
+          <button class="song-item" onclick="learnSong(${JSON.stringify(s.n).replace(/"/g, '&quot;')}, '${s.yt}')">
+            <span>🎵 ${esc(s.n)}</span><span class="go-arrow">›</span>
           </button>`).join('')}
       </div>
     </div>`;
   $('#genre-songs').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 };
 
-window.learnSong = async (preset) => {
+window.learnSong = async (preset, ytId) => {
   if (!Gemini.hasKey()) { toast('Agrega tu API key en Ajustes'); go('settings'); return; }
   const name = preset || ($('#song-name') && $('#song-name').value.trim()) || '';
   if (!name) { toast('Escribe el nombre de una canción'); return; }
@@ -650,13 +650,18 @@ window.learnSong = async (preset) => {
   out.innerHTML = `<div class="card center"><div class="loader"></div><p class="muted">Preparando tu lección con "${esc(name)}"... 🎧</p></div>`;
   try {
     const l = await Gemini.songLesson(name);
+    const vid = ytId || l.youtubeId || '';
     const ytUrl = 'https://www.youtube.com/results?search_query=' + encodeURIComponent(l.title + ' ' + l.artist);
+    const player = vid
+      ? `<div class="yt-wrap"><iframe src="https://www.youtube.com/embed/${vid}" title="YouTube" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>
+         <p class="muted center" style="font-size:12px;margin-top:6px">¿No es la canción correcta? <a class="link" onclick="window.open('${ytUrl}','_blank')">buscar en YouTube</a></p>`
+      : `<button class="btn secondary" onclick="window.open('${ytUrl}','_blank')">▶️ Buscar en YouTube</button>`;
     out.innerHTML = `
       <div class="card fade-in song-card">
         <h2 style="text-align:center">🎶 ${esc(l.title)}</h2>
         <p class="muted center">${esc(l.artist)}</p>
+        ${player}
         <p style="margin:10px 0">${esc(l.about)}</p>
-        <button class="btn secondary" onclick="window.open('${ytUrl}','_blank')">▶️ Escuchar en YouTube</button>
 
         <div class="section-title">Expresiones de la canción</div>
         ${l.expressions.map(e => `
